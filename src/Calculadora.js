@@ -4,26 +4,17 @@ import { useLog } from './hooks/useLog';
 
 
  const Calculadora = () => {
-    const [number, setNumber] = useState(1);
+    const [number, setNumber] = useState(0);
+    const [result, setResult] = useState([number])
 
-    const [text, setText] = useState("Vyni")
-    
-    
-    const handleText = () => {
-        console.log(text + " jr");
-    }
-
-    const handle = () => {
-        console.log("eu " + number);
-    }
-useLog(0)
-  
+ 
 return(
 <>
 <h1>Criando uma Calculadora</h1>
 <div>
-    <button onClick={handle}>Clique aqui</button>
-    <button onClick={handleText}>Clique pro texto</button>
+    <label>Coloque um numero: </label>
+    <input value={number} onChange={e => setNumber(Number(e.target.value))}/>
+    <button onClick={() => console.log(result)}>Clique aqui</button>
 </div>
 </>
 );
