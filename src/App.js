@@ -2,16 +2,39 @@
 import './App.css';
 
 import { useState } from 'react';
-import BotaoProps from './BotaoProps';
 
 const App = () => {
   const [firstNumber, setFirstNumber] = useState(0);
   const [secondNumber, setSecondNumber] = useState(0);
   const [result, setResult] = useState(0);
+  const [history, setHistory] = useState([]);
 
-  const handleClick = (valor) => {
-    alert(valor)
-  }
+  const handleOperation = (operation) => {
+    let newResult;
+
+    switch(operation){
+      case "+": 
+        newResult = firstNumber + secondNumber;
+        break;
+
+      case "-":
+        newResult = firstNumber - secondNumber;
+        break;
+
+      case "*":
+        newResult = firstNumber * secondNumber;
+        break;
+
+      case "/":
+        newResult = secondNumber !== 0 ? firstNumber / secondNumber: "Erro";
+        break;
+
+      default:
+        return;
+    }
+    setResult(newResult);
+    setHistory([...history, "${firstNumber} ${operation} ${secondNumber} = ${newResult}"]);
+  };
 
   return (
     <>
@@ -25,16 +48,21 @@ const App = () => {
 
       <span>Result: {result}</span>
     </div>
-    <button onClick={() => setResult(firstNumber + secondNumber)}>+</button>
-    <button onClick={() => setResult(firstNumber - secondNumber)}>-</button>
-    <button onClick={() => setResult(firstNumber * secondNumber)}>*</button>
-    <button onClick={() => setResult(firstNumber / secondNumber)}>/</button>
+    <button onClick={() => handleOperation("+")}>+</button>
+    <button onClick={() => handleOperation("-")}>-</button>
+    <button onClick={() => handleOperation("*")}>*</button>
+    <button onClick={() => handleOperation("/")}>/</button>
     
-    <h2>Usando botao com props e fluxo de dados</h2>
-    <BotaoProps onClick={handleClick}mensagemNoClique="Hello">Botão do Prop</BotaoProps>
+    <h2>Exibindo o histórico</h2>
+    <ul>
+      {history.map((item, index) => (
+        <li key={index}>{item}</li> //--- "key = {index}" é uma chave para react saber distintiguir com particularidade cada item, no caso o "index" nunca é repetido dentro de uma array e assim o torna a "key" unica para cada item. 
+      ))}
+    </ul>
     </>
   );
-}
+};
+
 
 
 export default App;
