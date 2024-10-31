@@ -1,4 +1,5 @@
 import React from 'react';
+import HistoryItem from './HistoryItem';
 
  const History = (props) => {
 
@@ -7,7 +8,7 @@ import React from 'react';
     <h2>Exibindo o histórico</h2>
     <ul>
       {props.resultado.map((item, index) => (
-        <li key={index}>{item}</li>
+        <HistoryItem key={index} item={item}/>
       ))}
     </ul>
     </>
