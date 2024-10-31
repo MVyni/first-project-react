@@ -1,7 +1,6 @@
-
 import './App.css';
-
 import { useState } from 'react';
+import History from './History';
 
 const App = () => {
   const [firstNumber, setFirstNumber] = useState(0);
@@ -33,7 +32,7 @@ const App = () => {
         return;
     }
     setResult(newResult);
-    setHistory([...history, "${firstNumber} ${operation} ${secondNumber} = ${newResult}"]);
+    setHistory([...history, `${firstNumber} ${operation} ${secondNumber} = ${newResult}`]);
   };
 
   return (
@@ -53,12 +52,8 @@ const App = () => {
     <button onClick={() => handleOperation("*")}>*</button>
     <button onClick={() => handleOperation("/")}>/</button>
     
-    <h2>Exibindo o histórico</h2>
-    <ul>
-      {history.map((item, index) => (
-        <li key={index}>{item}</li> //--- "key = {index}" é uma chave para react saber distintiguir com particularidade cada item, no caso o "index" nunca é repetido dentro de uma array e assim o torna a "key" unica para cada item. 
-      ))}
-    </ul>
+    <History resultado={history}/> 
+     
     </>
   );
 };
