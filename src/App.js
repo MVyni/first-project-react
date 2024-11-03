@@ -8,6 +8,10 @@ const App = () => {
   const [result, setResult] = useState(0);
   const [history, setHistory] = useState([]);
 
+  const handleClear = () => {
+    setHistory([]);
+  }
+
   const handleOperation = (operation) => {
     let newResult;
 
@@ -33,6 +37,8 @@ const App = () => {
     }
     setResult(newResult);
     setHistory([...history, `${firstNumber} ${operation} ${secondNumber} = ${newResult}`]);
+
+    
   };
 
   return (
@@ -53,7 +59,7 @@ const App = () => {
     <button onClick={() => handleOperation("/")}>/</button>
     
     <History resultado={history}/> 
-     
+    <button onClick={handleClear}>Clear History</button>
     </>
   );
 };
