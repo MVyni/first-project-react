@@ -1,15 +1,18 @@
 import './App.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import History from './History';
+
 
 const App = () => {
   const [firstNumber, setFirstNumber] = useState(0);
   const [secondNumber, setSecondNumber] = useState(0);
   const [result, setResult] = useState(0);
   const [history, setHistory] = useState([]);
-
+  const [opCount, setOpCount] = useState(0);
+  
   const handleClear = () => {
     setHistory([]);
+    setOpCount(0);
   }
 
   const handleOperation = (operation) => {
@@ -38,6 +41,7 @@ const App = () => {
     setResult(newResult);
     setHistory([...history, `${firstNumber} ${operation} ${secondNumber} = ${newResult}`]);
 
+    setOpCount(opCount +1); // incrementando para total de operaçôes.
     
   };
 
@@ -59,7 +63,10 @@ const App = () => {
     <button onClick={() => handleOperation("/")}>/</button>
     
     <History resultado={history}/> 
+
     <button onClick={handleClear}>Clear History</button>
+
+    <p>Operation Total: {opCount}</p>
     </>
   );
 };
