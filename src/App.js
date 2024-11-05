@@ -9,7 +9,12 @@ const App = () => {
   const [result, setResult] = useState(0);
   const [history, setHistory] = useState([]);
   const [opCount, setOpCount] = useState(0);
-  
+  const [lastOperation, setLastOperation] = useState(0);
+
+  useEffect (() => {
+    setLastOperation(result)
+  }, [history])
+
   const handleClear = () => {
     setHistory([]);
     setOpCount(0);
@@ -42,7 +47,6 @@ const App = () => {
     setHistory([...history, `${firstNumber} ${operation} ${secondNumber} = ${newResult}`]);
 
     setOpCount(opCount +1); // incrementando para total de operaçôes.
-    
   };
 
   return (
@@ -63,10 +67,11 @@ const App = () => {
     <button onClick={() => handleOperation("/")}>/</button>
     
     <History resultado={history}/> 
+    <p>Last Operation: {lastOperation}</p>
 
     <button onClick={handleClear}>Clear History</button>
 
-    <p>Operation Total: {opCount}</p>
+    <p>Total Operation: {opCount}</p>
     </>
   );
 };
