@@ -1,6 +1,7 @@
 import './App.css';
 import { useEffect, useState } from 'react';
 import History from './History';
+import useLimitedHistory from './hooks/useLimitedHistory';
 
 
 const App = () => {
@@ -10,6 +11,9 @@ const App = () => {
   const [history, setHistory] = useState([]);
   const [opCount, setOpCount] = useState(0);
   const [lastOperation, setLastOperation] = useState(0);
+
+  //PARA LIMITAR O HISTÓRICO A 5 ITENS
+  const limitedHistory = useLimitedHistory(history, 5); 
 
   useEffect (() => {
     setLastOperation(result)
@@ -66,12 +70,14 @@ const App = () => {
     <button onClick={() => handleOperation("*")}>*</button>
     <button onClick={() => handleOperation("/")}>/</button>
     
-    <History resultado={history}/> 
+    <History resultado={limitedHistory}/> 
+
     <p>Last Operation: {lastOperation}</p>
 
     <button onClick={handleClear}>Clear History</button>
 
     <p>Total Operation: {opCount}</p>
+    <p>As ultimas operaçôes são:</p>
     </>
   );
 };
