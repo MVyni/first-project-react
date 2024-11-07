@@ -77,7 +77,7 @@ const App = () => {
     <button onClick={handleClear}>Clear History</button>
 
     <p>Total Operation: {opCount}</p>
-    <p>As ultimas operaçôes são:</p>
+  
     </>
   );
 };
