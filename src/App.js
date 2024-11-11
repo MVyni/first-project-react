@@ -1,85 +1,42 @@
-import './App.css';
-import { useEffect, useState } from 'react';
-import History from './History';
-import useLimitedHistory from './hooks/useLimitedHistory';
+import React from "react";
 
+const Equipe = (props) => {
+  return(
+  <>  
+  <Sobre usernamne={props.nome} idade={props.idade} cargo={props.cargo}/>
+  <Social ld={props.linkdin}/>
+  </>
+  );
+}
 
-const App = () => {
-  const [firstNumber, setFirstNumber] = useState(0);
-  const [secondNumber, setSecondNumber] = useState(0);
-  const [result, setResult] = useState(0);
-  const [history, setHistory] = useState([]);
-  const [opCount, setOpCount] = useState(0);
-  const [lastOperation, setLastOperation] = useState(0);
-
-  //PARA LIMITAR O HISTÓRICO A 5 ITENS
-  const limitedHistory = useLimitedHistory(history, 5); 
-
-  useEffect (() => {
-    setLastOperation(result)
-  }, [history])
-
-  const handleClear = () => {
-    setHistory([]);
-    setOpCount(0);
-  }
-
-  const handleOperation = (operation) => {
-    let newResult;
-
-    switch(operation){
-      case "+": 
-        newResult = firstNumber + secondNumber;
-        break;
-
-      case "-":
-        newResult = firstNumber - secondNumber;
-        break;
-
-      case "*":
-        newResult = firstNumber * secondNumber;
-        break;
-
-      case "/":
-        newResult = secondNumber !== 0 ? firstNumber / secondNumber: "Erro";
-        break;
-
-      default:
-        return;
-    }
-    setResult(newResult);
-    setHistory([...history, `${firstNumber} ${operation} ${secondNumber} = ${newResult}`]);
-
-    setOpCount(opCount +1); // incrementando para total de operaçôes.
-  };
-
-  return (
+const Sobre = (props) => {
+  return(
     <>
-    <h1>Calculator</h1>
-    <div>
-      <label>First Number</label>
-      <input value={firstNumber} onChange={e => setFirstNumber(Number(e.target.value))} />
+  <h2>Olá sou o(a) {props.usernamne}</h2>
+  <h3>Idade: {props.idade}</h3>
+  <h3>Cargo: {props.cargo}</h3>
+  </>
+  );
+}
 
-      <label>Second Number</label>
-      <input value={secondNumber} onChange={e => setSecondNumber(Number(e.target.value))} />
-
-      <span>Result: {result}</span>
-    </div>
-    <button onClick={() => handleOperation("+")}>+</button>
-    <button onClick={() => handleOperation("-")}>-</button>
-    <button onClick={() => handleOperation("*")}>*</button>
-    <button onClick={() => handleOperation("/")}>/</button>
-    
-    <History resultado={limitedHistory}/> 
-
-    <p>Last Operation: {lastOperation}</p>
-
-    <button onClick={handleClear}>Clear History</button>
-
-    <p>Total Operation: {opCount}</p>
-  
+const Social = (props) => {
+  return(
+    <>
+    <a>Facebook</a>
+    <a href={props.ld}>LinkdIn</a>
+    <a>Instagram</a>
     </>
   );
+}
+
+const App = () => {
+  return(
+    <>
+        <h1>Conheça a nossa equipe:</h1>
+        <Equipe nome="Vynicius" idade ="25" cargo="Gruista" linkdin="https://www.google.com"/>/>
+        <Equipe nome="Carol" idade ="23" cargo="Vendedora" linkdin="https://www.google.com"/>
+    </>
+  )
 };
 
 
